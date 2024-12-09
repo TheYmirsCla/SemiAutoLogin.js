@@ -40,8 +40,18 @@
     };
   }
 
+  function changePassword(e) {
+    if (e.key === 'e' && e.altKey) {
+      newWin.document.body.innerHTML="<center><form id='resetForm'><input id='newPass' type='password' autofocus/><br><br><input type='submit' value='Reset Password'></form></center>";
+      newWin.document.getElementById("resetForm").onsubmit=function(){
+        pass = newWin.document.getElementById("newPass").value;
+        newWin.close();
+      };
+    }
+  }
+
   function changeLoginKey(e) {
-    if (e.shiftKey && e.key === '0') {
+    if (e.key === '9' && e.altKey) {
       newWin.document.body.innerHTML="<center><form id='keyForm'><input id='newKey' type='text' autofocus/><br><br><input type='submit' value='Set Key'></form></center>";
       newWin.document.getElementById("keyForm").onsubmit=function(){
         loginKey = newWin.document.getElementById("newKey").value;
@@ -56,6 +66,7 @@
     }
   }
 
+  ModAPI.addEventListener("key", changePassword);
   ModAPI.addEventListener("key", changeLoginKey);
   ModAPI.addEventListener("key", loginModFunc);
 
@@ -73,16 +84,5 @@
     }
   }
 
-  function resetPassword(e) {
-    if (e.ctrlKey && e.key === 'r') {
-      newWin.document.body.innerHTML="<center><form id='resetForm'><input id='newPass' type='password' autofocus/><br><br><input type='submit' value='Reset Password'></form></center>";
-      newWin.document.getElementById("resetForm").onsubmit=function(){
-        pass = newWin.document.getElementById("newPass").value;
-        newWin.close();
-      };
-    }
-  }
-
   ModAPI.addEventListener("key", closePopupOnEsc);
-  ModAPI.addEventListener("key", resetPassword);
 })();
